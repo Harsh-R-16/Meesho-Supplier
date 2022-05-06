@@ -13,29 +13,25 @@ let categories = [
   "Electronics",
 ];
 
-export default function Edit() {
+export default function AddProduct() {
   let { id } = useParams();
+
   let [details, setDetails] = React.useState({
     name: "Loading...",
     type: "Loading...",
-    sprice: "Loading...",
-    aprice: "Loading...",
+    sprice: 0,
+    aprice: 0,
     img: "Loading...",
   });
 
   React.useEffect(() => {
-    fetch(`https://meeshodb.herokuapp.com/api/v1/products/${id}`)
-      .then((res) => res.json())
-      .then((res) =>
-        setDetails({
-          name: res.data.name,
-          type: res.data.type,
-          sprice: res.data.sprice,
-          aprice: res.data.aprice,
-          img: res.data.img,
-        })
-      )
-      .catch((err) => console.log(err));
+    fetch(`
+https://meeshodb.herokuapp.com/api/v1/products/${id}`).then((res) =>
+      res.json().then((res) => {
+        console.log(res);
+        setDetails(res.data);
+      })
+    );
   }, [id]);
 
   const changeHandler = (e) => {
@@ -44,9 +40,12 @@ export default function Edit() {
     temp[id] = value;
     setDetails(temp);
   };
+
   return (
     <Main>
-      <h1>Edit Product Details</h1>
+      <h1>Edit Product</h1>
+      <hr />
+
       <form action="">
         <label htmlFor="name">Product Name</label>
         <input
@@ -66,14 +65,14 @@ export default function Edit() {
         </select>
         <label htmlFor="sprice">Selling Price</label>
         <input
-          type="text"
+          type="number"
           id="sprice"
           value={details["sprice"]}
           onChange={changeHandler}
         />
         <label htmlFor="aprice">Original Price</label>
         <input
-          type="text"
+          type="number"
           id="aprice"
           value={details["aprice"]}
           onChange={changeHandler}
@@ -85,30 +84,27 @@ export default function Edit() {
           value={details["img"]}
           onChange={changeHandler}
         />
-        <button>Save Changes</button>
+        <button>Save Details</button>
+        <button>Delete Product</button>
       </form>
     </Main>
   );
 }
 
-/*
-name: "Trendy Pretty Kurtis",
-    type: "Women Ethnic",
-    sprice: 410,
-    aprice: 460,img
-*/
-
 const Main = styled.main`
-  border: 1px solid #000;
   width: 400px;
   padding: 20px 20px 30px;
   margin: 70px auto;
-  background-color: #f0f4f8;
-  border: 1px solid rgb(184, 184, 184);
-  box-shadow: 0 0 10px 3px #dbdbdb;
+  box-shadow: 1px 1px 6px 5px #e4e4e4;
+
+  hr {
+    border: none;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    margin: 15px 0 20px;
+  }
 
   h1 {
-    font-size: 27px;
+    font-size: 25px;
     font-weight: 500;
   }
 
@@ -121,15 +117,24 @@ const Main = styled.main`
   input,
   select {
     padding: 3px 6px;
-    margin: 8px 0 11px;
+    margin: 8px 0 13px;
+    border: none;
+    border-bottom: 1px solid rgb(178, 178, 178);
+    padding: 0 0 8px 6px;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
   }
 
   button {
-    padding: 7px;
-    font-size: 16px;
+    width: 100%;
+    padding: 10px;
     margin-top: 20px;
-    background-color: #fff;
-    border: 1px solid rgb(184, 184, 184);
+    border: none;
+    background-color: #f43397;
+    color: #fff;
     font-weight: 500;
+    border-radius: 3px;
   }
 `;

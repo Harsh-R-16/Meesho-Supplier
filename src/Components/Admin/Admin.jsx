@@ -73,6 +73,18 @@ export default function Admin() {
       });
   }, []);
 
+  const removeUser = (index) => {
+    let temp = [...users];
+    temp.splice(index, 1);
+    setUsers(temp);
+  };
+
+  const removeSeller = (index) => {
+    let temp = [...sellers];
+    temp.splice(index, 1);
+    setSellers(temp);
+  };
+
   return (
     <main id="admin">
       <Nav>
@@ -146,7 +158,7 @@ export default function Admin() {
       >
         Total Visitors on Website: {visitors}
       </h2>
-      <h1>All Users</h1>
+      <h1 style={{ fontWeight: "500" }}>All Users</h1>
       <Section id="users">
         <table>
           <thead>
@@ -167,13 +179,20 @@ export default function Admin() {
                 <td>{email}</td>
                 <td>{password}</td>
                 <td>0{Math.ceil(Math.random() * 8)}/05/2022</td>
-                <td className="remove">Remove</td>
+                <td
+                  className="remove"
+                  onClick={() => {
+                    removeUser(index);
+                  }}
+                >
+                  Remove
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </Section>
-      <h1>All Sellers</h1>
+      <h1 style={{ fontWeight: "500" }}>All Sellers</h1>
       <Section id="sellers">
         <table>
           <thead>
@@ -189,12 +208,16 @@ export default function Admin() {
           </thead>
           <tbody>
             {sellers.map((i, index) => (
-              <tr>
+              <tr
+                onClick={() => {
+                  removeSeller(index);
+                }}
+              >
                 <td>{index + 1}.</td>
                 <td>{i[0]}</td>
                 <td>{i[1]}</td>
                 <td>{Math.ceil(Math.random() * 200) + 100}</td>
-                <td>{Math.ceil(Math.random() * 20) + 10}/05/2022</td>
+                <td>{Math.ceil(Math.random() * 20) + 10}/04/2022</td>
                 <td
                   onClick={() => {
                     localStorage.setItem("seller", i[0]);

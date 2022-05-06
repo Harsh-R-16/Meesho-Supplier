@@ -43,7 +43,7 @@ const Nav = styled.nav`
 `;
 
 const Aside = styled.aside`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: -100%;
   z-index: 10;

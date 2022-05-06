@@ -43,22 +43,10 @@ const Main = styled.main`
       border-radius: 5px;
       color: white;
       background-color: #f43397;
-      border: none;
       border: 1px solid #f43397;
       transition: background-color 0.2s linear;
 
       :nth-of-type(1) {
-        color: #f43397;
-        background-color: white;
-        border: 1px solid #f43397;
-
-        :hover {
-          color: white;
-          background-color: #f43397;
-        }
-      }
-
-      :hover {
         color: #f43397;
         background-color: white;
         border: 1px solid #f43397;
