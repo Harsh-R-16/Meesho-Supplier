@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 let categories = [
   "Women Ethnic",
   "Women Western",
@@ -19,8 +20,33 @@ export default function AddProduct() {
     type: "Men",
     sprice: "400",
     aprice: "1000",
-    img: "https://img.githubusercontent.com/",
+    img: "https://source.unsplash.com/random/?tshirt",
+    soldBy: localStorage.getItem("seller"),
+    similar: [
+      "https://source.unsplash.com/random/?tshirt",
+      "https://source.unsplash.com/random/?shirt",
+      "https://source.unsplash.com/random/?cloths",
+    ],
+    details: [
+      "Fabric : Twill",
+      "Sleeve Length : Three-Quarter Sleeves",
+      "Pattern : Puff Paint",
+      "Combo of : Single",
+    ],
   });
+  let navigate = useNavigate();
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    const a = await fetch("https://meeshodb.herokuapp.com/api/v1/products", {
+      method: "POST",
+      body: JSON.stringify(details),
+      headers: { "Content-Type": "application/json" },
+    });
+    const b = await a.json();
+    alert("Product Added Successfully!!!");
+    navigate("/dashboard/all-products");
+  };
 
   const changeHandler = (e) => {
     let { id, value } = e.target;
@@ -93,7 +119,7 @@ export default function AddProduct() {
           ></path>
         </svg>
       </div>
-      <form action="">
+      <form action="" onSubmit={submitForm}>
         <label htmlFor="name">Product Name</label>
         <input
           type="text"

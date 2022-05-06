@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 let categories = [
   "Women Ethnic",
   "Women Western",
@@ -15,6 +15,7 @@ let categories = [
 
 export default function AddProduct() {
   let { id } = useParams();
+  let navigate = useNavigate();
 
   let [details, setDetails] = React.useState({
     name: "Loading...",
@@ -34,6 +35,45 @@ https://meeshodb.herokuapp.com/api/v1/products/${id}`).then((res) =>
     );
   }, [id]);
 
+  const submitForm = async (e) => {
+    e.preventDefault();
+  };
+
+  const clickHandler = async (e) => {
+    if (e.target.innerHTML === "Save Details") {
+      try {
+        const a = await fetch(
+          `https://meeshodb.herokuapp.com/api/v1/products/${id}`,
+          {
+            method: "PATCH",
+            body: JSON.stringify(details),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const b = await a.json();
+        console.log(b);
+      } catch (err) {
+        alert("Product Updated!!!");
+      }
+      navigate("/dashboard/all-products");
+    } else {
+      try {
+        const a = await fetch(
+          `https://meeshodb.herokuapp.com/api/v1/products/${id}`,
+          {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const b = await a.json();
+        console.log(b);
+      } catch (err) {
+        alert("Product Deleted!!!");
+      }
+      navigate("/dashboard/all-products");
+    }
+  };
+
   const changeHandler = (e) => {
     let { id, value } = e.target;
     let temp = { ...details };
@@ -46,7 +86,7 @@ https://meeshodb.herokuapp.com/api/v1/products/${id}`).then((res) =>
       <h1>Edit Product</h1>
       <hr />
 
-      <form action="">
+      <form action="" onSubmit={submitForm}>
         <label htmlFor="name">Product Name</label>
         <input
           type="text"
@@ -84,8 +124,8 @@ https://meeshodb.herokuapp.com/api/v1/products/${id}`).then((res) =>
           value={details["img"]}
           onChange={changeHandler}
         />
-        <button>Save Details</button>
-        <button>Delete Product</button>
+        <button onClick={clickHandler}>Save Details</button>
+        <button onClick={clickHandler}>Delete Product</button>
       </form>
     </Main>
   );

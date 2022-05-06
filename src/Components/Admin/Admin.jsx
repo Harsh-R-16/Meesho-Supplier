@@ -24,7 +24,7 @@ let mon = [
 const random = () => {
   let newArr = [];
   for (let i = 0; i < 12; i++) {
-    newArr.push(Math.floor(Math.random() * 42) + 70);
+    newArr.push(Math.floor(Math.random() * 50) + 120);
   }
   return newArr;
 };
@@ -145,7 +145,7 @@ export default function Admin() {
           {arr.map((i, index) => (
             <section key={index}>
               <p>{i}</p>
-              <div style={{ height: `${i * 3}px` }}></div>
+              <div style={{ height: `${i * 2}px` }}></div>
               <p>
                 {mon[index]} {year}
               </p>
