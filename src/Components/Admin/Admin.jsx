@@ -177,7 +177,7 @@ export default function Admin() {
                 <td>{index + 1}.</td>
                 <td>{name}</td>
                 <td>{email}</td>
-                <td>{password}</td>
+                <td>******</td>
                 <td>0{Math.ceil(Math.random() * 8)}/05/2022</td>
                 <td
                   className="remove"

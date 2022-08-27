@@ -16,11 +16,11 @@ let categories = [
 export default function AddProduct() {
   let [color, setColor] = React.useState("#06A759");
   let [details, setDetails] = React.useState({
-    name: "Masai T-shirt",
+    name: "Polo T-shirt",
     type: "Men",
     sprice: "400",
     aprice: "1000",
-    img: "https://source.unsplash.com/random/?tshirt",
+    img: "https://cdn16.wildcraft.com/web-images/preview/styles/B20EI22VQLH/1569561842897/1.jpg",
     soldBy: localStorage.getItem("seller"),
     similar: [
       "https://source.unsplash.com/random/?tshirt",
@@ -44,6 +44,7 @@ export default function AddProduct() {
       headers: { "Content-Type": "application/json" },
     });
     const b = await a.json();
+    console.log(b);
     alert("Product Added Successfully!!!");
     navigate("/dashboard/all-products");
   };
